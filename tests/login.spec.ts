@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { SignupPage } from '../Pages/signUpPage';
 import { LoginPage } from '../Pages/loginPage';
+//import { testData } from '../test-data/testData';
+
+
 
 test.describe('Login Tests', () => {
 
@@ -21,7 +24,7 @@ test.describe('Login Tests', () => {
         await loginPage.goto();
 
         await loginPage.login(
-            'nandini.sharma@gmail.com',
+            'john@gmail.com',
             'password123'
         );
 
@@ -34,6 +37,7 @@ test.describe('Login Tests', () => {
         const  loginPage = new LoginPage(page);
 
         await loginPage.goto();
+
         await loginPage.invalidLogin( 'wrong@gmail.com', 'wrongpassword' );
          await page.locator("input[value='Sign In']").click();
  await page.waitForTimeout(2000);

@@ -27,7 +27,7 @@ await signupPage.enterFirstName('Nandini');
   await signupPage.enterLastName('Sharma');
   
 
-  await (signupPage as any).enterEmail?.('nandini.sharma@gmail.com');
+  await (signupPage as any).enterEmail?.('john@gmail.com');
   
 
    await (signupPage as any).enterPassword?.('password123');

@@ -6,17 +6,11 @@ test.describe('Product Tests', () => {
 
         await page.goto('https://sauce-demo.myshopify.com/collections/all');
 
-        await expect(
-            page.getByText('Grey jacket')
-        ).toBeVisible();
+        await expect( page.getByText('Grey jacket')).toBeVisible();
 
-        await expect(
-            page.getByText('Noir jacket')
-        ).toBeVisible();
+        await expect( page.getByText('Noir jacket')).toBeVisible();
 
-        await expect(
-            page.getByText('Striped top')
-        ).toBeVisible();
+        await expect( page.getByText('Striped top') ).toBeVisible();
     });
 
 
