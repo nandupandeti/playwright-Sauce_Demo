@@ -1,47 +1,77 @@
 
-
- import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { SignupPage } from '../Pages/signUpPage';
-import { LoginPage } from '../Pages/loginPage';
 
- test('Verify Signup page', async ({ page }) => {
+test.describe('Signup Test Scenarios', () => {
 
-   const signupPage = new SignupPage(page);
+    let signupPage: SignupPage;
 
-   // Navigate to signup page
-   await signupPage.navigateToSignup();
+    test.beforeEach(async ({ page }) => {
 
-  // Verify signup page
-  await signupPage.verifySignupPage();
+        signupPage = new SignupPage(page);
 
-//   // Verify first name field
- await signupPage.verifyFirstNameField();
+        
+        await page.goto('https://sauce-demo.myshopify.com/account/register');
 
-//   // Enter first name
-await signupPage.enterFirstName('Nandini');
-
-//   // Verify last name field
-   await signupPage.verifylastNameField();
-
-//   // Enter last name
-  await signupPage.enterLastName('Sharma');
-  
-
-  await (signupPage as any).enterEmail?.('john@gmail.com');
-  
-
-   await (signupPage as any).enterPassword?.('password123');
-
-//   // Verify signup button
-  await signupPage.verifyCreateButton();
-
-//   // Click signup
-  await signupPage.clickCreate();
-  
-
-    console.log('Signup page test completed successfully');
- });
+        
+        await expect(page.locator('text=Sign Up')).toBeVisible();
+    });
 
 
+    test('TC01 - Verify Signup Page', async () => {
 
+       // await expect(signupPage.signupHeading).toBeVisible();
+        await expect(signupPage.firstNameInput).toBeVisible();
+        await expect(signupPage.lastNameInput).toBeVisible();
+        await expect(signupPage.emailInput).toBeVisible();
+        await expect(signupPage.passwordInput).toBeVisible();
+        await expect(signupPage.createButton).toBeVisible();
+    });
+
+
+    test('TC02 - Signup with valid details', async () => {
+
+        await signupPage.enterFirstName('John');
+        await signupPage.enterLastName('Smith');
+        await signupPage.enterEmail('john' + Date.now() + '@gmail.com');
+        await signupPage.enterPassword('Test@12345');
+
+        await signupPage.clickCreateAccount();
+
+        
+    });
+
+
+    test('TC03 - Enter First Name', async () => {
+
+        await signupPage.enterFirstName('John');
+
+        await expect(signupPage.firstNameInput) .toHaveValue('John');
+    });
+
+
+    test('TC04 - Enter Last Name', async () => {
+
+        await signupPage.enterLastName('Smith');
+
+        await expect(signupPage.lastNameInput).toHaveValue('Smith');
+    });
+
+
+    test('TC05 - Enter Email', async () => {
+
+        await signupPage.enterEmail('john@example.com');
+
+        await expect(signupPage.emailInput).toHaveValue('john@example.com');
+    });
+
+
+    test('TC06 - Enter Password', async () => {
+
+        await signupPage.enterPassword('Test@12345');
+
+        await expect(signupPage.passwordInput).toHaveValue('Test@12345');
+    });
+
+});
 
